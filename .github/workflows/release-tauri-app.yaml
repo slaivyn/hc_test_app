@@ -1,8 +1,8 @@
 name: "release-tauri-app"
 on:
-  push: 
+  push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   publish-happ:
@@ -45,7 +45,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "workdir/my-forum-app.happ"
+          artifacts: "workdir/my_forum_app.happ"
           body: "See assets below to download and install this version."
           name: My Forum App v${{ steps.version.outputs.APP_VERSION }}
           tag: v${{ steps.version.outputs.APP_VERSION }}
@@ -58,14 +58,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest' # for Arm based macs (M1 and above).
-            args: '--target aarch64-apple-darwin'
-          - platform: 'macos-latest' # for Intel based macs.
-            args: '--target x86_64-apple-darwin'
-          - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: ''
-          - platform: 'windows-latest'
-            args: ''
+          - platform: "macos-latest" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin"
+          - platform: "macos-latest" # for Intel based macs.
+            args: "--target x86_64-apple-darwin"
+          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: ""
+          - platform: "windows-latest"
+            args: ""
     env:
       MACOSX_DEPLOYMENT_TARGET: 10.13
 
@@ -89,7 +89,7 @@ jobs:
         with:
           override: true
           toolchain: stable
-    
+
       - name: install x86_64 target
         if: matrix.args == '--target x86_64-apple-darwin'
         run: rustup target add x86_64-apple-darwin
@@ -124,11 +124,11 @@ jobs:
         uses: robinraju/release-downloader@v1.10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with: 
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
           releaseId: ${{ needs.publish-happ.outputs.releaseId }}
-          fileName: 'my-forum-app.happ'
-          out-file-path: 'workdir/'
+          fileName: "my_forum_app.happ"
+          out-file-path: "workdir/"
 
       - name: build the app
         uses: tauri-apps/tauri-action@v0
