@@ -126,7 +126,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          releaseId: ${{ needs.publish-happ.outputs.releaseId }}
+          releaseId: "${{ needs.publish-happ.outputs.releaseId }}"
           fileName: "my_forum_app.happ"
           out-file-path: "workdir/"
 
